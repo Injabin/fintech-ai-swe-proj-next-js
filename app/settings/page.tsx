@@ -8,12 +8,14 @@ import { SectionTitle } from '@/components/shared/section-title';
 import { useWatchlist } from '@/hooks/use-watchlist';
 import { useToast } from '@/components/shared/toast-provider';
 import { useTheme } from '@/components/shared/theme-provider';
+import { useSymbolSearch } from '@/hooks/use-symbol-search';
+import { SearchInput } from '@/components/search/search-input';
+import { SearchSuggestions } from '@/components/search/search-suggestions';
 
 export default function SettingsPage() {
   const [conn, setConn] = useState<Record<string, boolean>>({});
   const { watchlist, addSymbol, removeSymbol, ready } = useWatchlist();
-  const [addQuery, setAddQuery] = useState('');
-  const [addResults, setAddResults] = useState<{ sym: string; name: string }[]>([]);
+  const { query, setQuery, results, loading, clear } = useSymbolSearch();
   const [clearing, setClearing] = useState(false);
   const { toast } = useToast();
   const { theme, toggleTheme } = useTheme();
@@ -39,17 +41,7 @@ export default function SettingsPage() {
     }
   };
 
-  useEffect(() => {
-    if (!addQuery.trim()) { setAddResults([]); return; }
-    const t = setTimeout(async () => {
-      try {
-        const res = await fetch(`/api/symbols?q=${encodeURIComponent(addQuery)}`);
-        if (!res.ok) return;
-        setAddResults(await res.json());
-      } catch {}
-    }, 200);
-    return () => clearTimeout(t);
-  }, [addQuery]);
+
 
   const connections = [
     { name: 'Finnhub Key 1', ok: conn.finnhub, label: 'Market data (primary)' },
@@ -75,28 +67,34 @@ export default function SettingsPage() {
             <div style={{ fontSize: 10, color: U.textMute }}>{watchlist.length} symbols tracked</div>
           </div>
         </div>
-        <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
-          <input value={addQuery} onChange={e => setAddQuery(e.target.value)}
-            placeholder="Search to add a symbol..."
-            style={{ flex: 1, background: U.glassLo, border: `1px solid ${U.border}`, borderRadius: 10, padding: "8px 12px", color: U.text, fontSize: 12, outline: "none" }}
-          />
-        </div>
-        {addQuery && (
-          <div style={{ marginBottom: 12, maxHeight: 160, overflow: "auto", background: U.glassLo, borderRadius: 10, border: `1px solid ${U.border}` }}>
-            {addResults.map(r => (
-              <div key={r.sym} onClick={() => { addSymbol(r.sym, r.name); setAddQuery(''); setAddResults([]); toast('success', `${r.sym} added to watchlist`); }}
-                style={{ padding: "8px 12px", cursor: "pointer", borderBottom: `1px solid ${U.border}`, display: "flex", alignItems: "center", gap: 8 }}
-                onMouseEnter={e => (e.currentTarget.style.background = U.glass)}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-              >
-                <Plus size={12} color={U.emerald} />
-                <span style={{ fontSize: 12, fontWeight: 700, color: U.text }}>{r.sym}</span>
-                <span style={{ fontSize: 10, color: U.textMute }}>{r.name}</span>
-              </div>
-            ))}
-            {addQuery && !addResults.length && <div style={{ padding: 12, textAlign: "center", fontSize: 11, color: U.textMute }}>No matches</div>}
-          </div>
-        )}
+        <SearchInput 
+          query={query} 
+          onChange={setQuery} 
+          loading={loading} 
+          placeholder="Search to add a symbol..."
+          variant="medium"
+          onClear={clear}
+        />
+        <SearchSuggestions
+          query={query}
+          results={results}
+          onSelect={(sym, name) => {
+            addSymbol(sym, name);
+            clear();
+            toast('success', `${sym} added to watchlist`);
+          }}
+          renderItem={(r, onSelect) => (
+            <div key={r.sym} onClick={onSelect}
+              style={{ padding: "8px 12px", cursor: "pointer", borderBottom: `1px solid ${U.border}`, display: "flex", alignItems: "center", gap: 8 }}
+              onMouseEnter={e => (e.currentTarget.style.background = U.glass)}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            >
+              <Plus size={12} color={U.emerald} />
+              <span style={{ fontSize: 12, fontWeight: 700, color: U.text }}>{r.sym}</span>
+              <span style={{ fontSize: 10, color: U.textMute }}>{r.name}</span>
+            </div>
+          )}
+        />
         {ready && watchlist.slice(0, 12).map(s => (
           <div key={s.sym} style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 0", borderBottom: `1px solid ${U.border}` }}>
             <span style={{ fontSize: 12, fontWeight: 700, color: U.text, width: 52 }}>{s.sym}</span>
