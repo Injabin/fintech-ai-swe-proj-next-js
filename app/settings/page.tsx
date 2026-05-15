@@ -52,8 +52,12 @@ export default function SettingsPage() {
   }, [addQuery]);
 
   const connections = [
-    { name: 'Finnhub', ok: conn.finnhub, label: 'Market data (primary)' },
-    { name: 'Alpha Vantage', ok: conn.alphaVantage, label: 'Market data (fallback)' },
+    { name: 'Finnhub Key 1', ok: conn.finnhub, label: 'Market data (primary)' },
+    { name: 'Finnhub Key 2', ok: conn.finnhub2, label: 'Market data (primary fallback)' },
+    { name: 'Alpha Vantage Key 1', ok: conn.alphaVantage, label: 'Market data (fallback)' },
+    { name: 'Alpha Vantage Key 2', ok: conn.alphaVantage2, label: 'Market data (fallback)' },
+    { name: 'Alpha Vantage Key 3', ok: conn.alphaVantage3, label: 'Market data (fallback)' },
+    { name: 'Alpha Vantage Key 4', ok: conn.alphaVantage4, label: 'Market data (fallback)' },
     { name: 'Gemini AI', ok: conn.gemini, label: 'AI Copilot' },
   ];
 
