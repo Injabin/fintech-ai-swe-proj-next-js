@@ -238,7 +238,7 @@ export default function AICopilot() {
   const chatPanel = (
     <div style={{ display: "flex", flexDirection: "column", flex: 1, overflow: "hidden", position: "relative" }}>
       <div style={{ padding: isMobile ? "0 12px" : "0 18px", height: isMobile ? 44 : 52, borderBottom: `1px solid ${U.border}`, display: "flex", alignItems: "center", gap: 10, background: `linear-gradient(135deg,rgba(34,211,238,0.05),rgba(167,139,250,0.05))`, flexShrink: 0 }}>
-        <img src="/ai.jpeg" alt="fugAi" style={{ width: isMobile ? 26 : 30, height: isMobile ? 26 : 30, borderRadius: "50%", flexShrink: 0, objectFit: "cover", boxShadow: `0 0 16px ${U.cyanSoft}` }} />
+        <img src="/aui.jpeg" alt="fugAi" style={{ width: isMobile ? 26 : 30, height: isMobile ? 26 : 30, borderRadius: "50%", flexShrink: 0, objectFit: "cover", boxShadow: `0 0 16px ${U.cyanSoft}` }} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: isMobile ? 12 : 13, fontWeight: 700, color: U.text, lineHeight: 1 }}>fugAi</div>
           <div style={{ fontSize: 10, color: U.textMute, marginTop: 2, display: "flex", alignItems: "center", gap: 5 }}>
@@ -258,7 +258,7 @@ export default function AICopilot() {
       <div style={{ flex: 1, overflowY: "auto", padding: isMobile ? "12px 12px 8px" : "20px 20px 12px", display: "flex", flexDirection: "column", gap: isMobile ? 12 : 16 }}>
         {msgs.length === 1 && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: isMobile ? "16px 12px 0" : "32px 20px 0", gap: 14, animation: "fi .4s ease" }}>
-            <img src="/ai.jpeg" alt="fugAi" style={{ width: isMobile ? 44 : 56, height: isMobile ? 44 : 56, borderRadius: "50%", objectFit: "cover", boxShadow: `0 0 32px ${U.cyanSoft}` }} />
+            <img src="/aui.jpeg" alt="fugAi" style={{ width: isMobile ? 44 : 56, height: isMobile ? 44 : 56, borderRadius: "50%", objectFit: "cover", boxShadow: `0 0 32px ${U.cyanSoft}` }} />
             <div style={{ textAlign: "center" }}>
               <div style={{ fontSize: isMobile ? 14 : 16, fontWeight: 700, color: U.text, marginBottom: 4 }}>fugAi</div>
               <div style={{ fontSize: 11, color: U.textMute, lineHeight: 1.6, maxWidth: 320 }}>Ask anything about stocks, valuations, market signals, or investment strategies.</div>
@@ -267,7 +267,7 @@ export default function AICopilot() {
         )}
         {msgs.map((m, i) => (
           <div key={i} style={{ display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "row", alignItems: "flex-start", gap: isMobile ? 8 : 10, animation: "fi .22s ease" }}>
-            {m.role === "assistant" && <img src="/ai.jpeg" alt="fugAi" style={{ width: isMobile ? 24 : 28, height: isMobile ? 24 : 28, borderRadius: "50%", flexShrink: 0, marginTop: 2, objectFit: "cover", boxShadow: `0 0 10px ${U.cyanSoft}` }} />}
+            {m.role === "assistant" && <img src="/aui.jpeg" alt="fugAi" style={{ width: isMobile ? 24 : 28, height: isMobile ? 24 : 28, borderRadius: "50%", flexShrink: 0, marginTop: 2, objectFit: "cover", boxShadow: `0 0 10px ${U.cyanSoft}` }} />}
             {m.role === "user" && <div style={{ width: isMobile ? 24 : 28, height: isMobile ? 24 : 28, background: U.glassHi, border: `1px solid ${U.border}`, borderRadius: "50%", flexShrink: 0, marginTop: 2, display: "flex", alignItems: "center", justifyContent: "center", fontSize: isMobile ? 9 : 11, fontWeight: 700, color: U.text }}>U</div>}
             <div style={{ maxWidth: isMobile ? "82%" : "72%", padding: isMobile ? "10px 13px" : "11px 15px", fontSize: isMobile ? 12.5 : 13, lineHeight: 1.7, color: U.text, borderRadius: m.role === "user" ? "16px 4px 16px 16px" : "4px 16px 16px 16px", background: m.role === "user" ? U.glassHi : `linear-gradient(135deg,${U.cyanSoft},${U.violetSoft})`, border: `1px solid ${m.role === "user" ? U.borderHi : U.border}`, backdropFilter: "blur(10px)", boxShadow: `0 2px 16px rgba(0,0,0,0.05)` }} dangerouslySetInnerHTML={{ __html: md(m.content) }} />
           </div>

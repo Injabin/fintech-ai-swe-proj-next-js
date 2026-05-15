@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { U } from '@/lib/constants';
 import { useMarketStatus } from '@/hooks/use-market-status';
+import { useTheme } from '@/components/shared/theme-provider';
 
 export const NAV = [
   { id: "dashboard", label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
@@ -25,6 +26,7 @@ interface SidebarProps {
 export function Sidebar({ open, mobile, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { online, marketOpen, timestamp } = useMarketStatus();
+  const { theme } = useTheme();
   const openW = open ? 'var(--sidebar-w)' : '0px';
 
   return (
@@ -60,7 +62,7 @@ export function Sidebar({ open, mobile, onClose }: SidebarProps) {
             fontSize: 17, fontWeight: 800, color: U.text,
             letterSpacing: "-0.03em", lineHeight: 1, display: "flex", alignItems: "center", gap: 8
           }}>
-          <img src="/st2.png" alt="NEXUS" style={{
+          <img src={theme === 'dark' ? '/st1.png' : '/st2.png'} alt="NEXUS" style={{
             width: 26, height: 26, borderRadius: 6, flexShrink: 0,
             boxShadow: `0 0 14px rgba(34,211,238,0.4)`, animation: "float 3s ease-in-out infinite",
           }} />
