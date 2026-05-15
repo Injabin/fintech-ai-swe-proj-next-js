@@ -11,7 +11,7 @@ import { useMarketStatus } from '@/hooks/use-market-status';
 export const NAV = [
   { id: "dashboard", label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
   { id: "technical", label: "Technical Analysis", icon: TrendingUp, href: "/technical" },
-  { id: "copilot", label: "AI Copilot", icon: Bot, href: "/copilot" },
+  { id: "copilot", label: "fugAi", icon: Bot, href: "/copilot" },
   { id: "compare", label: "Compare Assets", icon: BarChart2, href: "/compare" },
   { id: "news", label: "News Sentiment", icon: Globe, href: "/news" },
 ];
@@ -60,13 +60,10 @@ export function Sidebar({ open, mobile, onClose }: SidebarProps) {
             fontSize: 17, fontWeight: 800, color: U.text,
             letterSpacing: "-0.03em", lineHeight: 1, display: "flex", alignItems: "center", gap: 8
           }}>
-            <div style={{
-              width: 22, height: 22, borderRadius: 6,
-              background: `linear-gradient(135deg,${U.cyan},${U.violet})`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: `0 0 14px rgba(34,211,238,0.4)`, animation: "float 3s ease-in-out infinite",
-              fontSize: 12, flexShrink: 0
-            }}>◈</div>
+          <img src="/st2.png" alt="NEXUS" style={{
+            width: 26, height: 26, borderRadius: 6, flexShrink: 0,
+            boxShadow: `0 0 14px rgba(34,211,238,0.4)`, animation: "float 3s ease-in-out infinite",
+          }} />
             NEXUS
           </div>
           <div style={{

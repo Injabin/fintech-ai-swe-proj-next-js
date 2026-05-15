@@ -11,7 +11,7 @@ import { useResponsive } from '@/hooks/use-responsive';
 export const SUBS: Record<string, string> = {
   "/dashboard": "Live market intelligence dashboard",
   "/technical": "OHLC candlestick analysis with 30s live polling",
-  "/copilot": "AI-powered investment coaching with live fundamentals",
+  "/copilot": "fugAi-powered investment coaching with live fundamentals",
   "/compare": "Side-by-side multivariate asset comparison via radar analysis",
   "/news": "Global news feed with AI-assigned Fear/Greed sentiment scores",
   "/settings": "API connections and display preferences",
