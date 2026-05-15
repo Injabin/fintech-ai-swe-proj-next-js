@@ -35,8 +35,6 @@ export default function SearchPage() {
     return () => clearTimeout(t);
   }, [query]);
 
-  const filtered = results;
-
   return (
     <div style={{ animation: "fi .4s ease" }}>
       <SectionTitle icon={SearchIcon}>Search</SectionTitle>
@@ -59,7 +57,7 @@ export default function SearchPage() {
         {loading && <Loader2 size={14} color={U.textMute} style={{ animation: "spin .8s linear infinite" }} />}
         {!loading && query && (
           <span style={{ fontSize: 11, color: U.textMute, background: U.glassLo, padding: "3px 10px", borderRadius: 999 }}>
-            {filtered.length} results
+            {results.length} results
           </span>
         )}
       </div>
@@ -76,14 +74,14 @@ export default function SearchPage() {
         </div>
       )}
 
-      {!loading && !error && filtered.length === 0 && query && (
+      {!loading && !error && results.length === 0 && query && (
         <GlassCard style={{ padding: "32px", textAlign: "center" }}>
           <div style={{ fontSize: 13, color: U.textMute }}>No results for &quot;{query}&quot;</div>
           <div style={{ fontSize: 11, color: U.textFaint, marginTop: 4 }}>Try a ticker symbol like AAPL or a company name</div>
         </GlassCard>
       )}
 
-      {!loading && filtered.length === 0 && !query && (
+      {!loading && results.length === 0 && !query && (
         <GlassCard style={{ padding: "40px 24px", textAlign: "center" }}>
           <div style={{ width: 56, height: 56, borderRadius: "50%", background: U.glass, border: `1px solid ${U.border}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
             <SearchIcon size={22} color={U.textMute} />
@@ -98,35 +96,36 @@ export default function SearchPage() {
         </GlassCard>
       )}
 
-      {!loading && filtered.length > 0 && (
+      {!loading && results.length > 0 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {filtered.map(t => (
-            <Link key={t.sym} href={`/compare?symbol=${t.sym}`} style={{ textDecoration: "none" }}>
-              <GlassCard style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }}>
-                <div style={{
-                  width: 38, height: 38, borderRadius: 10,
-                  background: `linear-gradient(135deg,${U.cyanSoft},${U.violetSoft})`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  border: `1px solid ${U.borderHi}`, flexShrink: 0
-                }}>
-                  <TrendingUp size={16} color={U.cyan} />
+          {results.map(t => (
+            <GlassCard key={t.sym} style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: 14 }}>
+              <div style={{
+                width: 38, height: 38, borderRadius: 10,
+                background: `linear-gradient(135deg,${U.cyanSoft},${U.violetSoft})`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                border: `1px solid ${U.borderHi}`, flexShrink: 0
+              }}>
+                <TrendingUp size={16} color={U.cyan} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: U.text }}>{t.sym}</span>
+                  <span style={{ fontSize: 11, color: U.textMute }}>{t.name}</span>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: U.text }}>{t.sym}</span>
-                    <span style={{ fontSize: 11, color: U.textMute }}>{t.name}</span>
-                  </div>
-                  <div style={{ display: "flex", gap: 12, marginTop: 4 }}>
-                    <span style={{ fontSize: 10, color: U.textFaint, display: "flex", alignItems: "center", gap: 4 }}>
-                      <BarChart3 size={10} /> View comparison
-                    </span>
-                    <span style={{ fontSize: 10, color: U.textFaint, display: "flex", alignItems: "center", gap: 4 }}>
-                      <ExternalLink size={10} /> Full analysis
-                    </span>
-                  </div>
+                <div style={{ display: "flex", gap: 12, marginTop: 6 }}>
+                  <Link href={`/compare?symbol=${t.sym}`} style={{ textDecoration: "none", fontSize: 10, color: U.textFaint, display: "flex", alignItems: "center", gap: 4 }}>
+                    <BarChart3 size={10} /> Compare
+                  </Link>
+                  <Link href={`/technical?symbol=${t.sym}`} style={{ textDecoration: "none", fontSize: 10, color: U.textFaint, display: "flex", alignItems: "center", gap: 4 }}>
+                    <TrendingUp size={10} /> Technicals
+                  </Link>
+                  <Link href={`/copilot?symbol=${t.sym}`} style={{ textDecoration: "none", fontSize: 10, color: U.textFaint, display: "flex", alignItems: "center", gap: 4 }}>
+                    <ExternalLink size={10} /> AI Copilot
+                  </Link>
                 </div>
-              </GlassCard>
-            </Link>
+              </div>
+            </GlassCard>
           ))}
         </div>
       )}
