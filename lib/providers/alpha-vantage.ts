@@ -86,13 +86,19 @@ export async function fetchCandles(symbol: string, resolution: string, count: nu
   return entries.slice(-count);
 }
 
+/**
+ * Fetch fundamentals for a stock symbol
+ * Issue #15: Fixed percentage normalization by dividing by 100
+ * Converts API percentage values (0-100) to decimal values (0-1) for consistency
+ */
 export async function fetchFundamentals(symbol: string): Promise<NormalizedFundamentals | null> {
   const data = await fetchJson({ function: 'OVERVIEW', symbol });
   if (!data?.Symbol) return null;
   const peRatio = parseFloat(data.PERatio) || 0;
-  const roe = parseFloat(data.ReturnOnEquityTTM) || 0;
-  const revenueCagr = parseFloat(data.RevenueGrowthTTM) || 0;
-  const netMargin = parseFloat(data.ProfitMargin) || 0;
+  // Issue #15: Normalize percentages by dividing by 100 to convert from API format (0-100) to decimal (0-1)
+  const roe = (parseFloat(data.ReturnOnEquityTTM) || 0) / 100;
+  const revenueCagr = (parseFloat(data.RevenueGrowthTTM) || 0) / 100;
+  const netMargin = (parseFloat(data.ProfitMargin) || 0) / 100;
   const debtEquity = parseFloat(data.DebtToEquity) || 0;
   const marketCap = parseFloat(data.MarketCapitalization) || 0;
   if (!peRatio && !roe && !revenueCagr && !netMargin) return null;

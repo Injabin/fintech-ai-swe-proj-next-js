@@ -5,10 +5,19 @@ import { getCached, setCached } from '@/lib/cache';
 
 const DEFAULTS = SP500_TOP100.slice(0, 8).map(s => s.sym);
 
+/**
+ * Format market cap with proper scaling
+ * Issue #13: Fixed thresholds to correctly scale from Trillions down to Thousands
+ * - 1e12 and above = Trillions (T)
+ * - 1e9 to 1e12 = Billions (B)
+ * - 1e6 to 1e9 = Millions (M)
+ * - 1e3 to 1e6 = Thousands (K)
+ */
 function fmtMarketCap(n: number): string {
-  if (n >= 1e6) return `$${(n / 1e6).toFixed(1)}T`;
-  if (n >= 1e3) return `$${(n / 1e3).toFixed(1)}B`;
-  return `$${n.toFixed(0)}M`;
+  if (n >= 1e12) return `$${(n / 1e12).toFixed(1)}T`;
+  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6) return `$${(n / 1e6).toFixed(1)}M`;
+  return `$${(n / 1e3).toFixed(1)}K`;
 }
 
 export async function GET() {
