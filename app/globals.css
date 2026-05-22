@@ -7,6 +7,7 @@
 :root {
   --bg: #0B0E14;
   --bg-deep: #07090e;
+  --backdrop-filter: blur(24px) saturate(150%);
   --glass: rgba(255,255,255,0.04);
   --glass-hi: rgba(255,255,255,0.07);
   --glass-lo: rgba(255,255,255,0.025);
@@ -156,6 +157,25 @@ html.light-mode {
   --score-amber-bg: rgba(217,119,6,0.08);
 }
 
+html.low-glass {
+  --backdrop-filter: none;
+  --glass: rgba(15, 17, 23, 0.85);
+  --glass-hi: rgba(22, 25, 34, 0.95);
+  --glass-lo: rgba(10, 12, 16, 0.75);
+}
+
+html.light-mode.low-glass {
+  --backdrop-filter: none;
+  --glass: rgba(248, 250, 252, 0.95);
+  --glass-hi: rgba(255, 255, 255, 0.98);
+  --glass-lo: rgba(241, 245, 249, 0.95);
+}
+
+html.no-animations * {
+  animation: none !important;
+  transition: none !important;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -249,4 +269,27 @@ body {
 }
 @media (min-width: 768px) {
   .show-mobile { display: none !important; }
+}
+
+/* Settings Responsive Layout */
+.settings-card-watchlist {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.settings-card-api {
+  grid-column: 2;
+  grid-row: 1;
+}
+.settings-card-appearance {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+@media (max-width: 1024px) {
+  .settings-card-watchlist,
+  .settings-card-api,
+  .settings-card-appearance {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
 }

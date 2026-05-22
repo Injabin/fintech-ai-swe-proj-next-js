@@ -18,8 +18,8 @@ export function GlassCard({ children, style, className, onMouseEnter, onMouseLea
       onClick={onClick}
       style={{
         background: U.glass,
-        backdropFilter: "blur(24px) saturate(150%)",
-        WebkitBackdropFilter: "blur(24px) saturate(150%)",
+        backdropFilter: "var(--backdrop-filter)",
+        WebkitBackdropFilter: "var(--backdrop-filter)",
         border: `1px solid ${U.border}`,
         borderRadius: 14,
         ...style
