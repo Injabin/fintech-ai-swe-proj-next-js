@@ -9,12 +9,7 @@ interface SearchSuggestionsProps {
   renderItem?: (result: SearchResult, onSelect: () => void) => ReactNode;
 }
 
-export function SearchSuggestions({
-  query,
-  results,
-  onSelect,
-  renderItem,
-}: SearchSuggestionsProps) {
+export function SearchSuggestions({ query, results, onSelect, renderItem }: SearchSuggestionsProps) {
   if (!query) return null;
 
   return (

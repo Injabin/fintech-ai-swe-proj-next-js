@@ -92,19 +92,25 @@ export default function SettingsPage() {
             </div>
           )}
         />
-        {ready && watchlist.slice(0, 12).map(s => (
-          <div key={s.sym} style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 0", borderBottom: `1px solid ${U.border}` }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: U.text, width: 52 }}>{s.sym}</span>
-            <span style={{ fontSize: 11, color: U.textMute, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.name}</span>
-            <button onClick={() => { removeSymbol(s.sym); toast('info', `${s.sym} removed from watchlist`); }} style={{ background: "transparent", border: "none", cursor: "pointer", color: U.textFaint, padding: 4 }}>
-              <Trash2 size={12} />
-            </button>
-          </div>
-        ))}
-        {ready && watchlist.length > 12 && (
-          <div style={{ fontSize: 10, color: U.textMute, textAlign: "center", padding: "8px 0" }}>
-            +{watchlist.length - 12} more symbols
-          </div>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2, maxHeight: 340, overflowY: "auto", marginTop: 8 }}>
+          {ready && watchlist.map(s => (
+            <div key={s.sym} style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 10px", borderRadius: 8, transition: "background .15s" }}
+              onMouseEnter={e => (e.currentTarget.style.background = U.glass)}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            >
+              <span style={{ fontSize: 13, fontWeight: 700, color: U.text, width: 56, fontFamily: "JetBrains Mono" }}>{s.sym}</span>
+              <span style={{ fontSize: 12, color: U.textMute, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.name}</span>
+              <button onClick={() => { removeSymbol(s.sym); toast('info', `${s.sym} removed from watchlist`); }} style={{ background: "transparent", border: "none", cursor: "pointer", color: U.textFaint, padding: 4, borderRadius: 6, transition: "all .15s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = U.roseSoft; e.currentTarget.style.color = U.rose; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = U.textFaint; }}
+              >
+                <Trash2 size={13} />
+              </button>
+            </div>
+          ))}
+        </div>
+        {ready && watchlist.length === 0 && (
+          <div style={{ fontSize: 11, color: U.textMute, textAlign: "center", padding: "12px 0" }}>No symbols in watchlist</div>
         )}
       </GlassCard>
 

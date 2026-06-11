@@ -6,25 +6,15 @@ interface SearchInputProps {
   onChange: (val: string) => void;
   loading?: boolean;
   placeholder?: string;
-  variant?: 'large' | 'medium' | 'small';
+  variant?: "large" | "medium" | "small";
   accent?: string;
   onClear?: () => void;
   resultCount?: number;
   autoFocus?: boolean;
 }
 
-export function SearchInput({
-  query,
-  onChange,
-  loading = false,
-  placeholder = 'Search...',
-  variant = 'medium',
-  accent = U.cyan,
-  onClear,
-  resultCount,
-  autoFocus = false,
-}: SearchInputProps) {
-  if (variant === 'large') {
+export function SearchInput({ query, onChange, loading = false, placeholder = "Search...", variant = "medium", accent = U.cyan, onClear, resultCount, autoFocus = false }: SearchInputProps) {
+  if (variant === "large") {
     return (
       <div style={{
         display: "flex", alignItems: "center", gap: 10,
@@ -55,7 +45,7 @@ export function SearchInput({
     );
   }
 
-  if (variant === 'small') {
+  if (variant === "small") {
     return (
       <div style={{ 
         display: "flex", alignItems: "center", gap: 6, 
@@ -87,12 +77,12 @@ export function SearchInput({
         style={{ flex: 1, background: U.glassLo, border: `1px solid ${query ? accent : U.border}`, borderRadius: 10, padding: "8px 12px", color: U.text, fontSize: 12, outline: "none" }}
       />
       {loading && (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 10, border: `1px solid ${U.border}`, background: U.glassLo }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: 10, border: `1px solid ${U.border}`, background: U.glassLo }}>
           <Loader2 size={14} color={U.textMute} style={{ animation: "spin 1s linear infinite" }} />
         </div>
       )}
       {!loading && query && onClear && (
-        <div onClick={onClear} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 10, border: `1px solid ${U.border}`, background: U.glassLo, cursor: 'pointer' }}>
+        <div onClick={onClear} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: 10, border: `1px solid ${U.border}`, background: U.glassLo, cursor: "pointer" }}>
           <X size={14} color={U.textMute} />
         </div>
       )}

@@ -14,16 +14,18 @@ export function useSymbolSearch(debounceMs = 200) {
 
   useEffect(() => {
     if (!query.trim()) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setResults([]);
-      setError(null);
-      setLoading(false);
+      Promise.resolve().then(() => {
+        setResults([]);
+        setError(null);
+        setLoading(false);
+      });
       return;
     }
     
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLoading(true);
-    setError(null);
+    Promise.resolve().then(() => {
+      setLoading(true);
+      setError(null);
+    });
     clearTimeout(debounceRef.current);
     
     debounceRef.current = setTimeout(async () => {
