@@ -79,11 +79,11 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     if (!alerts.length || !Object.keys(live).length) return;
 
-    const updatedAlerts = alerts.map(a => ({ ...a }));
     let triggeredAny = false;
     const triggeredNotifications: MarketNotification[] = [];
+    const triggeredAlertIds = new Set<string>();
 
-    for (const alert of updatedAlerts) {
+    for (const alert of alerts) {
       if (!alert.active) continue;
 
       const liveData = live[alert.symbol];
@@ -99,7 +99,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       }
 
       if (isTriggered) {
-        alert.active = false; // Prevent repeated triggering
+        triggeredAlertIds.add(alert.id);
         triggeredAny = true;
 
         const notif: MarketNotification = {
@@ -119,8 +119,20 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
     if (triggeredAny) {
       Promise.resolve().then(() => {
-        saveAlerts(updatedAlerts);
-        saveNotifications([...triggeredNotifications, ...notifications]);
+        setAlerts(prev => {
+          const next = prev.map(a => triggeredAlertIds.has(a.id) ? { ...a, active: false } : a);
+          try {
+            localStorage.setItem('nexus-alerts', JSON.stringify(next));
+          } catch {}
+          return next;
+        });
+        setNotifications(prev => {
+          const next = [...triggeredNotifications, ...prev];
+          try {
+            localStorage.setItem('nexus-notifications', JSON.stringify(next));
+          } catch {}
+          return next;
+        });
       });
     }
 
@@ -130,7 +142,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
         prevLive.current[key] = live[key].price;
       }
     }
-  }, [live, alerts, notifications, toast]);
+  }, [live, alerts, toast]);
 
   const createAlert = useCallback((symbol: string, type: 'above' | 'below', value: number) => {
     const newAlert: PriceAlert = {

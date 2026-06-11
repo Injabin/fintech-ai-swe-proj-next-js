@@ -98,7 +98,7 @@ export default function NotificationsPage() {
                     onChange={(e) => setSymbol(e.target.value)}
                     style={{
                       width: "100%",
-                      background: U.inputBg || 'rgba(255,255,255,0.05)',
+                      background: U.inputBg || "rgba(255,255,255,0.05)",
                       border: `1px solid ${U.border}`,
                       borderRadius: 8,
                       color: U.text,
@@ -109,7 +109,7 @@ export default function NotificationsPage() {
                     }}
                   >
                     {TICKERS.map(t => (
-                      <option key={t.sym} value={t.sym} style={{ background: '#0a0a0f', color: '#fff' }}>
+                      <option key={t.sym} value={t.sym} style={{ background: "#0a0a0f", color: "#fff" }}>
                         {t.sym} - {t.name}
                       </option>
                     ))}
@@ -121,10 +121,10 @@ export default function NotificationsPage() {
                   <label style={{ display: "block", fontSize: 10, fontWeight: 600, color: U.textMute, marginBottom: 5, textTransform: "uppercase" }}>Condition</label>
                   <select
                     value={type}
-                    onChange={(e) => setType(e.target.value as 'above' | 'below')}
+                    onChange={(e) => setType(e.target.value as "above" | "below")}
                     style={{
                       width: "100%",
-                      background: U.inputBg || 'rgba(255,255,255,0.05)',
+                      background: U.inputBg || "rgba(255,255,255,0.05)",
                       border: `1px solid ${U.border}`,
                       borderRadius: 8,
                       color: U.text,
@@ -134,8 +134,8 @@ export default function NotificationsPage() {
                       cursor: "pointer"
                     }}
                   >
-                    <option value="above" style={{ background: '#0a0a0f', color: '#fff' }}>Price goes ABOVE</option>
-                    <option value="below" style={{ background: '#0a0a0f', color: '#fff' }}>Price goes BELOW</option>
+                    <option value="above" style={{ background: "#0a0a0f", color: "#fff" }}>Price goes ABOVE</option>
+                    <option value="below" style={{ background: "#0a0a0f", color: "#fff" }}>Price goes BELOW</option>
                   </select>
                 </div>
               </div>
@@ -213,14 +213,14 @@ export default function NotificationsPage() {
                             fontWeight: 700,
                             padding: "2px 6px",
                             borderRadius: 4,
-                            background: alert.type === 'above' ? 'rgba(16,185,129,0.15)' : 'rgba(244,63,94,0.15)',
-                            color: alert.type === 'above' ? U.emerald : U.rose,
+                            background: alert.type === "above" ? "rgba(16,185,129,0.15)" : "rgba(244,63,94,0.15)",
+                            color: alert.type === "above" ? U.emerald : U.rose,
                             display: "flex",
                             alignItems: "center",
                             gap: 2
                           }}>
-                            {alert.type === 'above' ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
-                            {alert.type === 'above' ? 'ABOVE' : 'BELOW'}
+                            {alert.type === "above" ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
+                            {alert.type === "above" ? "ABOVE" : "BELOW"}
                           </span>
                         </div>
                         <div style={{ fontSize: 11, color: U.textMute }}>
@@ -243,8 +243,8 @@ export default function NotificationsPage() {
                           color: U.textMute,
                           transition: "all .15s",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.color = U.rose; e.currentTarget.style.background = 'rgba(244,63,94,0.1)'; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.color = U.textMute; e.currentTarget.style.background = 'transparent'; }}
+                        onMouseEnter={(e) => { e.currentTarget.style.color = U.rose; e.currentTarget.style.background = "rgba(244,63,94,0.1)"; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.color = U.textMute; e.currentTarget.style.background = "transparent"; }}
                       >
                         <Trash2 size={13} />
                       </button>
@@ -281,7 +281,7 @@ export default function NotificationsPage() {
                   onClick={() => !notif.read && markAsRead(notif.id)}
                   style={{
                     padding: 12,
-                    background: notif.read ? U.glassLo : 'rgba(255,255,255,0.03)',
+                    background: notif.read ? U.glassLo : "rgba(255,255,255,0.03)",
                     borderRadius: 10,
                     border: `1px solid ${notif.read ? U.border : U.borderHi}`,
                     borderLeft: notif.read ? `1px solid ${U.border}` : `3.5px solid ${U.cyan}`,
@@ -298,14 +298,14 @@ export default function NotificationsPage() {
                     width: 28,
                     height: 28,
                     borderRadius: "50%",
-                    background: notif.read ? U.glass : 'rgba(34,211,238,0.1)',
+                    background: notif.read ? U.glass : "rgba(34,211,238,0.1)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                     color: notif.read ? U.textMute : U.cyan
                   }}>
-                    {notif.type === 'price' ? <Bell size={13} /> : <FileText size={13} />}
+                    {notif.type === "price" ? <Bell size={13} /> : <FileText size={13} />}
                   </div>
 
                   {/* Body */}
@@ -340,8 +340,8 @@ export default function NotificationsPage() {
                           alignItems: "center",
                           justifyContent: "center",
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(34,211,238,0.1)'}
-                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                        onMouseEnter={(e) => e.currentTarget.style.background = "rgba(34,211,238,0.1)"}
+                        onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                       >
                         <Check size={12} />
                       </button>
@@ -360,8 +360,8 @@ export default function NotificationsPage() {
                         alignItems: "center",
                         justifyContent: "center",
                       }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = U.rose; e.currentTarget.style.background = 'rgba(244,63,94,0.1)'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.color = U.textMute; e.currentTarget.style.background = 'transparent'; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = U.rose; e.currentTarget.style.background = "rgba(244,63,94,0.1)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = U.textMute; e.currentTarget.style.background = "transparent"; }}
                     >
                       <Trash2 size={12} />
                     </button>

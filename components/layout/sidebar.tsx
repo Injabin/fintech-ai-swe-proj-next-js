@@ -99,16 +99,16 @@ export function Sidebar({ open, mobile, onClose }: SidebarProps) {
                   {id === "notifications" && unreadCount > 0 && (
                     <span style={{
                       background: U.rose,
-                      color: '#ffffff',
+                      color: "#ffffff",
                       fontSize: 10,
                       fontWeight: 700,
                       borderRadius: 8,
-                      padding: '1px 6px',
+                      padding: "1px 6px",
                       minWidth: 16,
                       height: 16,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       boxShadow: `0 0 8px ${U.rose}`,
                       animation: "pulse-dot 2.5s ease infinite",
                       flexShrink: 0

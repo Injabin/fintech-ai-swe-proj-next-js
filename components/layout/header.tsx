@@ -73,34 +73,34 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
             <Link href="/search"><Btn variant="glass" size="md"><Search size={13} /> Search</Btn></Link>
           )}
 
-          <Link href="/notifications" style={{ position: 'relative', display: 'inline-block', textDecoration: 'none' }}>
+          <Link href="/notifications" style={{ position: "relative", display: "inline-block", textDecoration: "none" }}>
             {isMobile ? (
               <button style={{ width: 36, height: 36, borderRadius: 10, background: U.glass, backdropFilter: "blur(24px) saturate(150%)", border: `1px solid ${U.border}`, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                <Bell size={14} color={pathname === '/notifications' ? U.cyan : U.textDim} />
+                <Bell size={14} color={pathname === "/notifications" ? U.cyan : U.textDim} />
               </button>
             ) : (
-              <Btn variant={pathname === '/notifications' ? 'cyan' : 'glass'} size="md">
+              <Btn variant={pathname === "/notifications" ? "cyan" : "glass"} size="md">
                 <Bell size={13} /> Notifications
               </Btn>
             )}
             {unreadCount > 0 && (
               <span style={{
-                position: 'absolute',
+                position: "absolute",
                 top: -3,
                 right: -3,
                 background: U.rose,
-                color: '#ffffff',
+                color: "#ffffff",
                 fontSize: 8,
                 fontWeight: 800,
-                borderRadius: '50%',
+                borderRadius: "50%",
                 width: 15,
                 height: 15,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 boxShadow: `0 0 8px ${U.rose}`,
                 border: `1.5px solid #0a0a0f`,
-                pointerEvents: 'none'
+                pointerEvents: "none"
               }}>
                 {unreadCount}
               </span>
@@ -108,7 +108,7 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
           </Link>
 
           <Link href="/settings">
-            <Btn variant={pathname === '/settings' ? 'cyan' : 'glass'} size="md"><Settings size={13} /> Settings</Btn>
+            <Btn variant={pathname === "/settings" ? "cyan" : "glass"} size="md"><Settings size={13} /> Settings</Btn>
           </Link>
         </div>
       </div>
