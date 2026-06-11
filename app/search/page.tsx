@@ -1,6 +1,6 @@
 'use client';
 
-import { Search as SearchIcon } from 'lucide-react';
+import { Search as SearchIcon, Loader2 } from 'lucide-react';
 import { U } from '@/lib/constants';
 import { GlassCard } from '@/components/shared/glass-card';
 import { ErrorMessage } from '@/components/shared/error-message';
@@ -9,7 +9,6 @@ import { useWatchlist } from '@/hooks/use-watchlist';
 import { useSymbolSearch } from '@/hooks/use-symbol-search';
 import { SearchInput } from '@/components/search/search-input';
 import { SearchResults } from '@/components/search/search-results';
-import { Loader2 } from 'lucide-react';
 
 export default function SearchPage() {
   const { query, setQuery, results, loading, error, retry } = useSymbolSearch();

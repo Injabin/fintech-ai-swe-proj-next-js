@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Sparkles, Bot, Send, Star, Search as SearchIcon, Lightbulb, Loader2, MessageSquare, BarChart3, Plus, X } from 'lucide-react';
+import { Sparkles, Bot, Send, Star, Lightbulb, Loader2, MessageSquare, BarChart3, Plus } from 'lucide-react';
 import { U, SCORECARD } from '@/lib/constants';
 import { computeScorecard, type ScorecardData } from '@/lib/scorecard-utils';
 import type { NormalizedFundamentals } from '@/lib/providers/types';
