@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useToast } from './toast-provider';
 import { useLiveTickers } from '@/hooks/use-live-tickers';
 
@@ -58,21 +58,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     });
     return () => { active = false; };
   }, []);
-
-  // 2. Sync helper functions
-  const saveAlerts = (newAlerts: PriceAlert[]) => {
-    setAlerts(newAlerts);
-    try {
-      localStorage.setItem('nexus-alerts', JSON.stringify(newAlerts));
-    } catch {}
-  };
-
-  const saveNotifications = (newNotifications: MarketNotification[]) => {
-    setNotifications(newNotifications);
-    try {
-      localStorage.setItem('nexus-notifications', JSON.stringify(newNotifications));
-    } catch {}
-  };
 
   // 3. Dynamic Alert checking logic
   useEffect(() => {
