@@ -40,11 +40,13 @@ export default function SettingsPage() {
   };
 
   useEffect(() => {
-    if (!addQuery.trim()) {
-      Promise.resolve().then(() => setAddResults([]));
-      return;
-    }
     let active = true;
+    if (!addQuery.trim()) {
+      Promise.resolve().then(() => {
+        if (active) setAddResults([]);
+      });
+      return () => { active = false; };
+    }
     const t = setTimeout(async () => {
       try {
         const res = await fetch(`/api/symbols?q=${encodeURIComponent(addQuery)}`);

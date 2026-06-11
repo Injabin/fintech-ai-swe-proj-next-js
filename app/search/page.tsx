@@ -17,14 +17,16 @@ export default function SearchPage() {
   const { watchlist } = useWatchlist();
 
   useEffect(() => {
+    let active = true;
     if (!query.trim()) {
       Promise.resolve().then(() => {
-        setResults([]);
-        setError(null);
+        if (active) {
+          setResults([]);
+          setError(null);
+        }
       });
-      return;
+      return () => { active = false; };
     }
-    let active = true;
     const t = setTimeout(async () => {
       Promise.resolve().then(() => {
         if (active) {

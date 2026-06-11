@@ -42,7 +42,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
   const [notifications, setNotifications] = useState<MarketNotification[]>([]);
   const { toast } = useToast();
   const live = useLiveTickers();
-  const prevLive = useRef<Record<string, number>>({});
 
   // 1. Initial Load from localStorage (deferred to bypass SSR mismatch and effect warnings)
   useEffect(() => {
@@ -77,6 +76,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
   // 3. Dynamic Alert checking logic
   useEffect(() => {
+    let active = true;
     if (!alerts.length || !Object.keys(live).length) return;
 
     let triggeredAny = false;
@@ -103,7 +103,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
         triggeredAny = true;
 
         const notif: MarketNotification = {
-          id: Math.random().toString(36).substring(2, 9),
+          id: crypto.randomUUID(),
           title: `Alert Triggered: ${alert.symbol}`,
           message: `${alert.symbol} is currently $${curPrice.toFixed(2)}, which has crossed your target threshold of $${alert.value.toFixed(2)}.`,
           timestamp: new Date().toISOString(),
@@ -119,6 +119,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
     if (triggeredAny) {
       Promise.resolve().then(() => {
+        if (!active) return;
         setAlerts(prev => {
           const next = prev.map(a => triggeredAlertIds.has(a.id) ? { ...a, active: false } : a);
           try {
@@ -136,17 +137,12 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       });
     }
 
-    // Capture current prices for comparison
-    for (const key of Object.keys(live)) {
-      if (live[key].price > 0) {
-        prevLive.current[key] = live[key].price;
-      }
-    }
+    return () => { active = false; };
   }, [live, alerts, toast]);
 
   const createAlert = useCallback((symbol: string, type: 'above' | 'below', value: number) => {
     const newAlert: PriceAlert = {
-      id: Math.random().toString(36).substring(2, 9),
+      id: crypto.randomUUID(),
       symbol,
       type,
       value,

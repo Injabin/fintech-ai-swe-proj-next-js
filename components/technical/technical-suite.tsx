@@ -97,18 +97,26 @@ export default function TechnicalSuite() {
   }, []);
 
   useEffect(() => {
+    let active = true;
     if (!searchQuery.trim()) {
-      Promise.resolve().then(() => setSearchResults([]));
-      return;
+      Promise.resolve().then(() => {
+        if (active) setSearchResults([]);
+      });
+      return () => { active = false; };
     }
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
       try {
         const res = await fetch(`/api/symbols?q=${encodeURIComponent(searchQuery)}`);
         if (!res.ok) return;
-        setSearchResults(await res.json());
+        const data = await res.json();
+        if (active) setSearchResults(data);
       } catch {}
     }, 200);
+    return () => {
+      active = false;
+      clearTimeout(debounceRef.current);
+    };
   }, [searchQuery]);
   const [tf, setTf] = useState("1M");
   const [allCandles, setAllCandles] = useState<any[]>([]);

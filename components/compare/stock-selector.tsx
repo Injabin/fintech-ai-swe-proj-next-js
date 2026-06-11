@@ -38,9 +38,12 @@ export function StockSelector({ value, onChange, exclude, accent, accentRgb, lab
   }, []);
 
   useEffect(() => {
+    let active = true;
     if (!search.trim()) {
-      Promise.resolve().then(() => setApiResults([]));
-      return;
+      Promise.resolve().then(() => {
+        if (active) setApiResults([]);
+      });
+      return () => { active = false; };
     }
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
@@ -48,10 +51,13 @@ export function StockSelector({ value, onChange, exclude, accent, accentRgb, lab
         const res = await fetch(`/api/symbols?q=${encodeURIComponent(search)}`);
         if (!res.ok) return;
         const data = await res.json();
-        setApiResults(data);
+        if (active) setApiResults(data);
       } catch {}
     }, 200);
-    return () => clearTimeout(debounceRef.current);
+    return () => {
+      active = false;
+      clearTimeout(debounceRef.current);
+    };
   }, [search]);
 
   const optionEntries = Object.entries(options);
