@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  LayoutDashboard, TrendingUp, Bot, BarChart2, Globe, Bell
+  LayoutDashboard, TrendingUp, Bot, BarChart2, Globe, Search, Settings, Bell
 } from "lucide-react";
 import { U } from '@/lib/constants';
 import { useMarketStatus } from '@/hooks/use-market-status';
@@ -11,12 +11,14 @@ import { useNotifications } from '@/components/shared/notification-provider';
 
 
 export const NAV = [
-  { id: "dashboard", label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
-  { id: "technical", label: "Technical Analysis", icon: TrendingUp, href: "/technical" },
-  { id: "copilot", label: "AI Copilot", icon: Bot, href: "/copilot" },
-  { id: "compare", label: "Compare Assets", icon: BarChart2, href: "/compare" },
-  { id: "news", label: "News Sentiment", icon: Globe, href: "/news" },
-  { id: "notifications", label: "Notifications", icon: Bell, href: "/notifications" },
+  { id: "dashboard", label: "Overview", mobileLabel: "Overview", icon: LayoutDashboard, href: "/dashboard" },
+  { id: "technical", label: "Technical Analysis", mobileLabel: "Technical", icon: TrendingUp, href: "/technical" },
+  { id: "copilot", label: "AI Copilot", mobileLabel: "Copilot", icon: Bot, href: "/copilot" },
+  { id: "compare", label: "Compare Assets", mobileLabel: "Compare", icon: BarChart2, href: "/compare" },
+  { id: "news", label: "News Sentiment", mobileLabel: "News", icon: Globe, href: "/news" },
+  { id: "search", label: "Search", mobileLabel: "Search", icon: Search, href: "/search" },
+  { id: "notifications", label: "Notifications", mobileLabel: "Alerts", icon: Bell, href: "/notifications" },
+  { id: "settings", label: "Settings", mobileLabel: "Settings", icon: Settings, href: "/settings" },
 ];
 
 interface SidebarProps {
